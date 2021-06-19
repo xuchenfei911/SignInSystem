@@ -109,7 +109,24 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLogStatus:) name:@"logInMessage" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLogOutStatus:) name:@"logOutMessage" object:nil];
 
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(290, 415, 150, 50)];
+    self.nameLabel.font = [UIFont systemFontOfSize:20];
+    self.nameLabel.textColor = [UIColor blackColor];
     
+    self.gradeViewLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 625, 50, 50)];
+    self.gradeViewLabel.text = @"年级";
+    self.gradeViewLabel.font = [UIFont systemFontOfSize:20];
+    self.gradeViewLabel.textColor = [UIColor blackColor];
+    
+    self.gradeLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 625, 150, 50)];
+    self.gradeLabel.text = @"大四";
+    self.gradeLabel.font = [UIFont systemFontOfSize:20];
+    self.gradeLabel.textColor = [UIColor blackColor];
+    
+    self.jobLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 555, 150, 50)];
+    self.jobLabel.text = @"学生";
+    self.jobLabel.font = [UIFont systemFontOfSize:20];
+    self.jobLabel.textColor = [UIColor blackColor];
 }
 
 #pragma  setSubviews
@@ -230,12 +247,56 @@
         self.gradeLabel.hidden = NO;
         self.quiteLabel.hidden = NO;
         self.isLogIn = YES;
+        [self.view addSubview:self.nameLabel];
+        self.nameLabel.text = @"许陈飞";
+        [self.view addSubview:self.gradeViewLabel];
+        self.gradeViewLabel.text = @"年级";
+        [self.view addSubview:self.gradeLabel];
+        self.gradeLabel.text = @"大四";
+        [self.view addSubview:self.jobLabel];
+        self.jobLabel.text = @"学生";
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"logInMessage" object:@""];
+    }else if ([self.stuPwd isEqualToString:@"b"]){
+        [[JSToastDialogs shareInstance] makeToast:@"登陆成功！" duration:1.0];
+        self.logInContainerView.hidden = YES;
+        self.topView.hidden = NO;
+        self.topCoverView.hidden = NO;
+        self.myHeadPortraitView.hidden = NO;
+        self.headPortraitViewReminderLabel.hidden = NO;
+        self.nameContainerView.hidden = NO;
+        self.schoolContainerView.hidden = NO;
+        self.jobContainerView.hidden = NO;
+        self.gradeContainerView.hidden = NO;
+        self.nameView.hidden = NO;
+        self.schoolView.hidden = NO;
+        self.jobView.hidden = NO;
+        self.gradeView.hidden = NO;
+        self.nameViewLabel.hidden = NO;
+        self.schoolViewLabel.hidden = NO;
+        self.jobViewLabel.hidden = NO;
+        self.gradeViewLabel.hidden = NO;
+     
+        self.nameLabel.hidden = NO;
+        self.schoolLabel.hidden = NO;
+        self.jobLabel.hidden = NO;
+        self.gradeLabel.hidden = NO;
+        self.quiteLabel.hidden = NO;
+        self.isLogIn = YES;
+        [self.view addSubview:self.nameLabel];
+        self.nameLabel.text = @"张哎哎";
+        [self.view addSubview:self.gradeViewLabel];
+        self.gradeViewLabel.text = @"职级";
+        [self.view addSubview:self.gradeLabel];
+        self.gradeLabel.text = @"讲师";
+        [self.view addSubview:self.jobLabel];
+        self.jobLabel.text = @"老师";
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"teacherLogInMessage" object:@""];
     }else {
         [[JSToastDialogs shareInstance] makeToast:@"登陆失败，请重新输入" duration:1.0];
     }
     
 
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"logInMessage" object:@""];
+    
     
 }
 # pragma textfileAction
@@ -354,16 +415,16 @@
     return _nameViewLabel;
 }
 
-- (UILabel *)nameLabel {
-    if (!_nameLabel) {
-        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(290, 415, 150, 50)];
-        _nameLabel.text = @"许陈飞";
-        _nameLabel.font = [UIFont systemFontOfSize:20];
-        _nameLabel.textColor = [UIColor blackColor];
-    }
-    _nameLabel.hidden = YES;
-    return _nameLabel;
-}
+//- (UILabel *)nameLabel {
+//    if (!_nameLabel) {
+//        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(290, 415, 150, 50)];
+//        _nameLabel.text = @"许陈飞";
+//        _nameLabel.font = [UIFont systemFontOfSize:20];
+//        _nameLabel.textColor = [UIColor blackColor];
+//    }
+//    _nameLabel.hidden = YES;
+//    return _nameLabel;
+//}
 
 
 //学校
@@ -439,16 +500,16 @@
     return _jobViewLabel;
 }
 
-- (UILabel *)jobLabel {
-    if (!_jobLabel) {
-        _jobLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 555, 150, 50)];
-        _jobLabel.text = @"学生";
-        _jobLabel.font = [UIFont systemFontOfSize:20];
-        _jobLabel.textColor = [UIColor blackColor];
-    }
-    _jobLabel.hidden = YES;
-    return _jobLabel;
-}
+//- (UILabel *)jobLabel {
+//    if (!_jobLabel) {
+//        _jobLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 555, 150, 50)];
+//        _jobLabel.text = @"学生";
+//        _jobLabel.font = [UIFont systemFontOfSize:20];
+//        _jobLabel.textColor = [UIColor blackColor];
+//    }
+//    _jobLabel.hidden = YES;
+//    return _jobLabel;
+//}
 
 //年级
 
@@ -470,27 +531,27 @@
     return _gradeView;
 }
 
-- (UILabel *)gradeViewLabel {
-    if (!_gradeViewLabel) {
-        _gradeViewLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 625, 50, 50)];
-        _gradeViewLabel.text = @"年级";
-        _gradeViewLabel.font = [UIFont systemFontOfSize:20];
-        _gradeViewLabel.textColor = [UIColor blackColor];
-    }
-    _gradeViewLabel.hidden = YES;
-    return _gradeViewLabel;
-}
+//- (UILabel *)gradeViewLabel {
+//    if (!_gradeViewLabel) {
+//        _gradeViewLabel = [[UILabel alloc]initWithFrame:CGRectMake(90, 625, 50, 50)];
+//        _gradeViewLabel.text = @"年级";
+//        _gradeViewLabel.font = [UIFont systemFontOfSize:20];
+//        _gradeViewLabel.textColor = [UIColor blackColor];
+//    }
+//    _gradeViewLabel.hidden = YES;
+//    return _gradeViewLabel;
+//}
 
-- (UILabel *)gradeLabel {
-    if (!_gradeLabel) {
-        _gradeLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 625, 150, 50)];
-        _gradeLabel.text = @"大四";
-        _gradeLabel.font = [UIFont systemFontOfSize:20];
-        _gradeLabel.textColor = [UIColor blackColor];
-    }
-    _gradeLabel.hidden = YES;
-    return _gradeLabel;
-}
+//- (UILabel *)gradeLabel {
+//    if (!_gradeLabel) {
+//        _gradeLabel = [[UILabel alloc]initWithFrame:CGRectMake(300, 625, 150, 50)];
+//        _gradeLabel.text = @"大四";
+//        _gradeLabel.font = [UIFont systemFontOfSize:20];
+//        _gradeLabel.textColor = [UIColor blackColor];
+//    }
+//    _gradeLabel.hidden = YES;
+//    return _gradeLabel;
+//}
 
 //退出按钮
 - (UILabel *)quiteLabel {

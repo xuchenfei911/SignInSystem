@@ -44,7 +44,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     newsDetailViewController *controller = [[newsDetailViewController alloc]init];
-    controller.title = [NSString stringWithFormat:@"新闻精选"];
+    controller.title = [NSString stringWithFormat:@"通知"];
     controller.view.backgroundColor = [UIColor whiteColor];
     NSArray *urlArray = @[@"https://www.toutiao.com/w/a1699512555319310/?log_from=101efc2cf3828_162078718293",
                          @"http://m2.people.cn/news/toutiao.html?s=MV8wXzE0OTg3MTA2XzQwOTZfMTYyMDc3MjIxMw==&tt_group_id=6961165118461870628",

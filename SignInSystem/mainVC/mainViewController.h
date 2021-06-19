@@ -12,5 +12,6 @@
 @property (nonatomic,assign) Boolean isLogIn;
 @property (nonatomic,assign) Boolean isNetOn;
 @property (nonatomic,assign) Boolean isStudent;
+@property (nonatomic,assign) Boolean isTeacher;
 
 @end

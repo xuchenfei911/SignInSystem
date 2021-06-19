@@ -15,6 +15,8 @@
 #import "publishTaskViewController.h"
 #import "shouDataViewController.h"
 #import "studentApplyViewController.h"
+//#import "UNUserNotificationCenter.h"
+
 
 @interface mainViewController ()
 @property (strong,nonatomic) UIImageView *qiandaoBgView;
@@ -68,11 +70,13 @@
     self.faxianLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 100, 80, 40)];
     self.faxianLabel.font = [UIFont fontWithName:@ "Arial Rounded MT Bold"  size:(36.0)];
     self.faxianLabel.text = @"发现";
+    self.faxianLabel.accessibilityHint = @"发现";
     [self.view addSubview:self.faxianLabel];
     
     self.tishiLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 110, 280, 40)];
     self.tishiLabel.font = [UIFont systemFontOfSize:16];;
     self.tishiLabel.text = @"及时签到，做一个优秀的学生哦";
+    self.tishiLabel.accessibilityHint = @"及时签到，做一个优秀的学生哦";
     [self.view addSubview:self.tishiLabel];
     
     self.qiandaoBgView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 180, self.view.frame.size.width-40, 170)];
@@ -81,6 +85,7 @@
     
     self.qiandaoLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 250, 350, 40)];
     self.qiandaoLabel.text = @"当前有3个签到任务";
+    self.qiandaoLabel.accessibilityHint = @"当前有3个签到任务";
     self.qiandaoLabel.font = [UIFont fontWithName:@ "Arial Rounded MT Bold"  size:(38.0)];
     [self.view addSubview:self.qiandaoLabel];
     
@@ -94,6 +99,7 @@
     
     self.chakanrenwuLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 440, 100, 60)];
     self.chakanrenwuLabel.text = @"当前任务";
+    self.chakanrenwuLabel.accessibilityHint = @"当前任务";
     self.chakanrenwuLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:_chakanrenwuLabel];
     
@@ -103,6 +109,7 @@
     
     self.buqianLabel = [[UILabel alloc]initWithFrame:CGRectMake(160, 440, 100, 60)];
     self.buqianLabel.text = @"申请补签";
+    self.buqianLabel.accessibilityHint = @"申请补签";
     self.buqianLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:self.buqianLabel];
     
@@ -112,12 +119,14 @@
     
     self.daibanLabel = [[UILabel alloc]initWithFrame:CGRectMake(280, 440, 100, 60)];
     self.daibanLabel.text = @"待办签到";
+    self.daibanLabel.accessibilityHint = @"待办签到";
     self.daibanLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:self.daibanLabel];
     
     self.jiaoshiLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 640, 180, 40)];
     self.jiaoshiLabel.font = [UIFont fontWithName:@ "Arial Rounded MT Bold"  size:(33.0)];
     self.jiaoshiLabel.text = @"教师功能";
+    self.jiaoshiLabel.accessibilityHint = @"教师功能";
     [self.view addSubview:self.jiaoshiLabel];
     
     self.grayLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 690, 390, 6)];
@@ -130,6 +139,7 @@
     
     self.fabuLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 780, 100, 60)];
     self.fabuLabel.text = @"发布签到";
+    self.fabuLabel.accessibilityHint = @"发布签到";
     self.fabuLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:self.fabuLabel];
     
@@ -139,6 +149,7 @@
     
     self.shujuLabel = [[UILabel alloc]initWithFrame:CGRectMake(160, 780, 100, 60)];
     self.shujuLabel.text = @"查看数据";
+    self.shujuLabel.accessibilityHint = @"查看数据";
     self.shujuLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:self.shujuLabel];
     
@@ -148,10 +159,12 @@
     
     self.shenqingLabel = [[UILabel alloc]initWithFrame:CGRectMake(280, 780, 100, 60)];
     self.shenqingLabel.text = @"查看申请";
+    self.shenqingLabel.accessibilityHint = @"查看申请";
     self.shenqingLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:self.shenqingLabel];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLogStatus:) name:@"logInMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeStatus:) name:@"teacherLogInMessage" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeLogOutStatus:) name:@"logOutMessage" object:nil];
 
     self.renwuView.userInteractionEnabled = YES;
@@ -188,6 +201,9 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(ChangeNetStatus:) name:@"netMessage" object:nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"netMessage" object:@""];
     
+
+    
+    
 }
 
 - (void) ChangeNetStatus: (NSNotification *)notification {
@@ -196,21 +212,42 @@
 
 - (void) changeLogStatus: (NSNotification *)notification {
     self.isLogIn = YES;
+    self.isStudent = YES;
+    self.isTeacher = NO;
+    self.qiandaoLabel.text = @"当前有3个签到任务";
 }
-
+- (void) changeStatus: (NSNotification *)notification {
+    self.isLogIn = YES;
+    self.isStudent = NO;
+    self.isTeacher = YES;
+    self.qiandaoLabel.text = @"当前没有签到任务";
+}
 - (void) changeLogOutStatus: (NSNotification *)notification {
     self.isLogIn = NO;
 }
 
 - (void)pushDangQianRenWuContorller: (UITapGestureRecognizer *)sender{
+    if (!self.isStudent){
+        [[JSToastDialogs shareInstance] makeToast:@"没有权限" duration:1.0];
+        return ;
+    }
     [self.navigationController pushViewController:[[currentTaskViewController alloc]init] animated:YES];
 }
 
 - (void)pushShenQingBuQianContorller: (UITapGestureRecognizer *)sender{
+    if (!self.isStudent){
+        
+        [[JSToastDialogs shareInstance] makeToast:@"没有权限" duration:1.0];
+        return ;
+    }
     [self.navigationController pushViewController:[[applyForViewController alloc]init] animated:YES];
 }
 
 - (void)pushDaiBanQianDaoContorller: (UITapGestureRecognizer *)sender{
+    if (!self.isStudent){
+        [[JSToastDialogs shareInstance] makeToast:@"没有权限" duration:1.0];
+        return ;
+    }
     [self.navigationController pushViewController:[[waitToBeDoneViewController alloc]init] animated:YES];
 }
 

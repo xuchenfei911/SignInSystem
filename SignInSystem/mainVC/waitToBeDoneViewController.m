@@ -46,7 +46,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [[JSToastDialogs shareInstance] makeToast:@"签到成功" duration:1.0];
+    [[JSToastDialogs shareInstance] makeToast:@"签到时间未到" duration:1.0];
     
 }
 #pragma mark - Table view data source
